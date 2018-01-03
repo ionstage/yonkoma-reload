@@ -20,7 +20,13 @@ body {
 .panel > svg {
   height: 100%;
   pointer-events: none;
+  -webkit-transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
   width: 100%;
+}
+
+.panel.hide > svg {
+  opacity: 0;
 }
 
 .panel.panel-active .translucent-on-active {

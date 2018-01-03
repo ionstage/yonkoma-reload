@@ -197,6 +197,10 @@
       dom.toggleClass(this.element, 'panel-active', value);
     };
 
+    Panel.prototype.visible = function(value) {
+      dom.toggleClass(this.element, 'hide', !value);
+    };
+
     Panel.prototype.onstart = function() {
       this.isActive(true);
     };
@@ -294,6 +298,9 @@
       var urls = names.map(function(name) {
         return this.imagePath(name);
       }.bind(this));
+      this.panels.forEach(function(panel) {
+        panel.visible(false);
+      });
       return Promise.all(urls.map(function(url) {
         return dom.ajax({ type: 'GET', url: url });
       })).then(function(texts) {
@@ -301,8 +308,13 @@
           this.panels[index].html(text);
         }.bind(this));
       }.bind(this)).then(function() {
+        setTimeout(function() {
+          this.panels.forEach(function(panel) {
+            panel.visible(true);
+          });
+        }.bind(this), 100);
         dom.urlFragment(dom.location(), fragment);
-      });
+      }.bind(this));
     };
 
     Body.prototype.onload = function() {
