@@ -129,7 +129,7 @@
 
     dom.urlFragment = function(url, value) {
       if (typeof value !== 'undefined') {
-        url.hash = '#' + value;
+        window.location.replace('#' + value);
         return;
       }
       return url.hash.substring(1);
