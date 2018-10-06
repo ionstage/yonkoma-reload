@@ -89,7 +89,7 @@
     };
 
     dom.supportsTouch = function() {
-      return ('createTouch' in document);
+      return ('ontouchstart' in window || (typeof DocumentTouch !== 'undefined' && document instanceof DocumentTouch));
     };
 
     dom.target = function(event) {
